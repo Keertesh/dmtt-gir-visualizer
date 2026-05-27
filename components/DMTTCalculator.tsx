@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { Calculator, Info, TrendingUp } from "lucide-react";
 
 export default function DMTTCalculator() {
@@ -46,7 +47,7 @@ export default function DMTTCalculator() {
   const isCompliant = etr >= 15 || deMinimis;
 
   return (
-    <div className="bg-slate-800 rounded-xl p-6 space-y-6">
+    <div className="rounded-xl p-4 sm:p-6 space-y-5 sm:space-y-6" style={{ background: "#0f172a", border: "1px solid #1e293b" }}>
       <div className="flex items-center gap-3">
         <div className="p-2 bg-violet-500/20 rounded-lg">
           <Calculator className="w-5 h-5 text-violet-400" />

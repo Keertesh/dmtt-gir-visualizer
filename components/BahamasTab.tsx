@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import GlowCard, { FadeIn, StaggerIn, StaggerItem } from "@/components/GlowCard";
 import {
   BAHAMAS_LEGISLATION,
   BAHAMAS_COMPLIANCE_TIMELINE,
@@ -68,19 +70,23 @@ export default function BahamasTab() {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       {/* Hero banner */}
-      <div
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, ease: [0.21,0.47,0.32,0.98] }}
         style={{
           background: "linear-gradient(135deg, #0c1a3a 0%, #1a1040 40%, #0c2a1a 100%)",
           border: "1px solid #1e3a5f",
           borderRadius: 14,
-          padding: "24px 28px",
+          padding: "20px 20px",
           position: "relative",
           overflow: "hidden",
         }}
       >
-        <div style={{ position: "absolute", right: -40, top: -40, width: 200, height: 200, borderRadius: "50%", background: "radial-gradient(circle, #10b98108, transparent)", pointerEvents: "none" }} />
+        <motion.div animate={{ scale: [1,1.3,1], opacity: [0.3,0.6,0.3] }} transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+          style={{ position: "absolute", right: -40, top: -40, width: 200, height: 200, borderRadius: "50%", background: "radial-gradient(circle, #10b98118, transparent)", pointerEvents: "none" }} />
         <div className="flex flex-col md:flex-row md:items-start justify-between gap-6">
           <div className="flex items-start gap-4">
             <div style={{ fontSize: 48, lineHeight: 1, flexShrink: 0 }}>🇧🇸</div>
@@ -111,27 +117,33 @@ export default function BahamasTab() {
             <MiniStat label="Est. Annual Revenue" value={`$${BAHAMAS_MACRO.estimatedDMTTRevenue.mid}M`} color="#8b5cf6" />
           </div>
         </div>
-      </div>
+      </motion.div>
 
       {/* Section tabs */}
-      <div style={{ borderBottom: "1px solid #1e293b" }}>
-        <div className="flex gap-0 overflow-x-auto">
+      <div style={{ borderBottom: "1px solid #1e293b", position: "relative" }}>
+        <div className="tab-scroll flex gap-0">
           {SECTION_TABS.map((t) => (
-            <button
+            <motion.button
               key={t.id}
               onClick={() => setSection(t.id)}
-              className="px-4 py-2.5 text-sm font-medium whitespace-nowrap transition-colors"
-              style={{
-                color: section === t.id ? "#fff" : "#64748b",
-                borderBottom: section === t.id ? "2px solid #10b981" : "2px solid transparent",
-                background: "transparent",
-              }}
+              className="px-3 sm:px-4 py-2.5 text-xs sm:text-sm font-medium whitespace-nowrap transition-colors relative"
+              style={{ color: section === t.id ? "#fff" : "#64748b", borderBottom: section === t.id ? "2px solid #10b981" : "2px solid transparent", background: "transparent" }}
+              whileTap={{ scale: 0.95 }}
             >
               {t.label}
-            </button>
+              {section === t.id && (
+                <motion.div layoutId="bs-indicator"
+                  style={{ position: "absolute", bottom: -1, left: 0, right: 0, height: 2, background: "linear-gradient(90deg,transparent,#10b981,transparent)" }}
+                  transition={{ type: "spring", stiffness: 350, damping: 30 }} />
+              )}
+            </motion.button>
           ))}
         </div>
       </div>
+
+      {/* ── SECTION CONTENT (animated) ── */}
+      <AnimatePresence mode="wait">
+      <motion.div key={section} initial={{ opacity:0, y:12 }} animate={{ opacity:1, y:0 }} exit={{ opacity:0, y:-8 }} transition={{ duration: 0.28 }}>
 
       {/* ── OVERVIEW ── */}
       {section === "overview" && (
@@ -719,6 +731,9 @@ export default function BahamasTab() {
           </div>
         </div>
       )}
+
+      </motion.div>
+      </AnimatePresence>
     </div>
   );
 }
