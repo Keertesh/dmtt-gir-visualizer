@@ -279,6 +279,36 @@ export const DMTT_COUNTRIES: CountryDMTT[] = [
     effectiveDate: "2024-01-01", statutoryCITRate: 20, estimatedETR: 12.8, pillarTwoAdopted: true,
     estimatedRevenue: 180, notes: "QDMTT enacted November 2023. Major FDI destination."
   },
+  {
+    iso3: "BHS", iso2: "BS", name: "Bahamas", region: "Americas",
+    dmttStatus: "enacted", girStatus: "draft", irmStatus: "none", utprStatus: "none",
+    effectiveDate: "2025-01-01", statutoryCITRate: 0, estimatedETR: 0, pillarTwoAdopted: true,
+    estimatedRevenue: 350, notes: "DMTT Act 2024 enacted Dec 30, 2024. QDMTT approach. Historic shift from 0% CIT. BRC administers. First filings due ~June 2026."
+  },
+  {
+    iso3: "BMU", iso2: "BM", name: "Bermuda", region: "Americas",
+    dmttStatus: "enacted", girStatus: "draft", irmStatus: "none", utprStatus: "none",
+    effectiveDate: "2025-01-01", statutoryCITRate: 15, estimatedETR: 0, pillarTwoAdopted: true,
+    estimatedRevenue: 750, notes: "Corporate Income Tax Act 2023 — 15% CIT (not QDMTT approach). Massive insurance/reinsurance sector impact."
+  },
+  {
+    iso3: "JEY", iso2: "JE", name: "Jersey", region: "Europe",
+    dmttStatus: "enacted", girStatus: "enacted", irmStatus: "none", utprStatus: "none",
+    effectiveDate: "2025-01-01", statutoryCITRate: 0, estimatedETR: 0, pillarTwoAdopted: true,
+    estimatedRevenue: 280, notes: "QDMTT enacted. Historic 0% CIT replaced for qualifying MNEs. Financial services hub."
+  },
+  {
+    iso3: "GGY", iso2: "GG", name: "Guernsey", region: "Europe",
+    dmttStatus: "enacted", girStatus: "enacted", irmStatus: "none", utprStatus: "none",
+    effectiveDate: "2025-01-01", statutoryCITRate: 0, estimatedETR: 0, pillarTwoAdopted: true,
+    estimatedRevenue: 190, notes: "QDMTT enacted. Fund domicile and private wealth centre adapting to Pillar Two."
+  },
+  {
+    iso3: "IMN", iso2: "IM", name: "Isle of Man", region: "Europe",
+    dmttStatus: "enacted", girStatus: "enacted", irmStatus: "none", utprStatus: "none",
+    effectiveDate: "2025-01-01", statutoryCITRate: 0, estimatedETR: 0, pillarTwoAdopted: true,
+    estimatedRevenue: 120, notes: "QDMTT enacted. e-Gaming, insurance and shipping impacted."
+  },
 ];
 
 export const GIR_REQUIREMENTS: GIRRequirement[] = [
@@ -294,6 +324,9 @@ export const GIR_REQUIREMENTS: GIRRequirement[] = [
   { country: "Singapore", iso2: "SG", filingDeadline: "12 months after FY end", firstFiscalYear: "2025", extensionAvailable: true, localFilingRequired: true, exchangePartner: false, xmlSchema: true, penaltyForNonFiling: "SGD 10,000" },
   { country: "Luxembourg", iso2: "LU", filingDeadline: "15 months after FY end", firstFiscalYear: "2024", extensionAvailable: true, localFilingRequired: true, exchangePartner: true, xmlSchema: true, penaltyForNonFiling: "Up to €25,000" },
   { country: "Brazil", iso2: "BR", filingDeadline: "12 months after FY end", firstFiscalYear: "2025", extensionAvailable: false, localFilingRequired: true, exchangePartner: false, xmlSchema: false, penaltyForNonFiling: "1-20% of tax due" },
+  { country: "Bahamas", iso2: "BS", filingDeadline: "18 months (FY2025); 15 months thereafter", firstFiscalYear: "2025", extensionAvailable: false, localFilingRequired: true, exchangePartner: false, xmlSchema: false, penaltyForNonFiling: "Under BRC rules (TBC)" },
+  { country: "Bermuda", iso2: "BM", filingDeadline: "15 months after FY end", firstFiscalYear: "2025", extensionAvailable: true, localFilingRequired: true, exchangePartner: false, xmlSchema: true, penaltyForNonFiling: "BMD 25,000" },
+  { country: "Jersey", iso2: "JE", filingDeadline: "12 months after FY end", firstFiscalYear: "2025", extensionAvailable: true, localFilingRequired: true, exchangePartner: true, xmlSchema: true, penaltyForNonFiling: "Up to £10,000" },
 ];
 
 export const PILLAR_TWO_TIMELINE = [

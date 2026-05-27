@@ -5,7 +5,7 @@ import dynamic from "next/dynamic";
 import {
   Globe2, BarChart3, FileText, Calculator, BookOpen,
   TrendingUp, AlertTriangle, CheckCircle2, Clock, Info,
-  ExternalLink, ChevronRight, Building2, Scale, Layers,
+  ExternalLink, ChevronRight, Building2, Scale, Layers, Anchor,
 } from "lucide-react";
 import {
   DMTT_COUNTRIES, GIR_REQUIREMENTS, PILLAR_TWO_TIMELINE,
@@ -14,6 +14,7 @@ import {
 import StatusBadge from "@/components/StatusBadge";
 import CountryTable from "@/components/CountryTable";
 import DMTTCalculator from "@/components/DMTTCalculator";
+import BahamasTab from "@/components/BahamasTab";
 import {
   RegionStatusChart, ETRComparisonChart, GlobalStatusPie,
   GIRFilingChart, RevenueImpactChart,
@@ -35,6 +36,7 @@ const TABS = [
   { id: "rates", label: "Tax Rates", icon: BarChart3 },
   { id: "calculator", label: "DMTT Calc", icon: Calculator },
   { id: "timeline", label: "Timeline", icon: Clock },
+  { id: "bahamas", label: "🇧🇸 Bahamas", icon: Anchor, highlight: true },
 ];
 
 export default function Home() {
@@ -114,10 +116,15 @@ export default function Home() {
             {TABS.map((tab) => {
               const Icon = tab.icon;
               const active = activeTab === tab.id;
+              const isHighlight = (tab as any).highlight;
               return (
                 <button key={tab.id} onClick={() => setActiveTab(tab.id)}
                   className="flex items-center gap-2 px-4 py-3 text-sm font-medium whitespace-nowrap transition-colors"
-                  style={{ color: active ? "#fff" : "#94a3b8", borderBottom: active ? "2px solid #8b5cf6" : "2px solid transparent", background: "transparent" }}>
+                  style={{
+                    color: active ? "#fff" : isHighlight ? "#34d399" : "#94a3b8",
+                    borderBottom: active ? `2px solid ${isHighlight ? "#10b981" : "#8b5cf6"}` : "2px solid transparent",
+                    background: isHighlight && !active ? "#10b98108" : "transparent",
+                  }}>
                   <Icon className="w-4 h-4" />{tab.label}
                 </button>
               );
@@ -437,6 +444,10 @@ export default function Home() {
             </div>
           </div>
         )}
+
+        {/* ── BAHAMAS ── */}
+        {activeTab === "bahamas" && <BahamasTab />}
+
       </main>
 
       {/* Footer */}

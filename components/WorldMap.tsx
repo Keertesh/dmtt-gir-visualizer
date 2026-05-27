@@ -38,6 +38,8 @@ const COUNTRY_POSITIONS: Record<string, { x: number; y: number; r?: number }> = 
   BR: { x: 295, y: 270 },
   MX: { x: 170, y: 195 },
   AR: { x: 275, y: 330 },
+  BS: { x: 225, y: 195, r: 9 }, // Bahamas — highlighted larger
+  BM: { x: 245, y: 185 }, // Bermuda
   // Middle East
   AE: { x: 588, y: 185 },
   SA: { x: 574, y: 183 },
