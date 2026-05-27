@@ -16,7 +16,16 @@ import {
 import StatusBadge from "@/components/StatusBadge";
 import CountryTable from "@/components/CountryTable";
 import DMTTCalculator from "@/components/DMTTCalculator";
-import BahamasTab from "@/components/BahamasTab";
+const BahamasTab = dynamic(() => import("@/components/BahamasTab"), {
+  ssr: false,
+  loading: () => (
+    <div className="space-y-4">
+      {[...Array(3)].map((_, i) => (
+        <div key={i} className="shimmer-bg rounded-xl" style={{ height: 120 }} />
+      ))}
+    </div>
+  ),
+});
 import AnimatedCounter from "@/components/AnimatedCounter";
 import GlowCard, { FadeIn, StaggerIn, StaggerItem } from "@/components/GlowCard";
 import {

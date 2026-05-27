@@ -75,7 +75,7 @@ export default function BahamasTab() {
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, ease: [0.21,0.47,0.32,0.98] }}
+        transition={{ duration: 0.5, ease: "easeOut" as const }}
         style={{
           background: "linear-gradient(135deg, #0c1a3a 0%, #1a1040 40%, #0c2a1a 100%)",
           border: "1px solid #1e3a5f",
