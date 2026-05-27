@@ -7,7 +7,7 @@ import {
   Globe2, BarChart3, FileText, Calculator, BookOpen,
   TrendingUp, AlertTriangle, CheckCircle2, Clock, Info,
   ExternalLink, ChevronRight, Building2, Scale, Layers, Anchor,
-  Menu, X, Zap,
+  Zap,
 } from "lucide-react";
 import {
   DMTT_COUNTRIES, GIR_REQUIREMENTS, PILLAR_TWO_TIMELINE,
@@ -36,13 +36,13 @@ const WorldMap = dynamic(() => import("@/components/WorldMap"), {
 const ParticleField = dynamic(() => import("@/components/ParticleField"), { ssr: false });
 
 const TABS = [
+  { id: "bahamas",     label: "🇧🇸 Bahamas", icon: Anchor,     color: "#10b981", highlight: true },
   { id: "overview",    label: "Overview",   icon: Globe2,     color: "#8b5cf6" },
   { id: "countries",   label: "Countries",  icon: Building2,  color: "#3b82f6" },
   { id: "gir",         label: "GIR Data",   icon: FileText,   color: "#06b6d4" },
   { id: "rates",       label: "Tax Rates",  icon: BarChart3,  color: "#f59e0b" },
   { id: "calculator",  label: "DMTT Calc",  icon: Calculator, color: "#ec4899" },
   { id: "timeline",    label: "Timeline",   icon: Clock,      color: "#a78bfa" },
-  { id: "bahamas",     label: "🇧🇸 Bahamas", icon: Anchor,     color: "#10b981", highlight: true },
 ];
 
 const TAB_VARIANTS = {
@@ -52,14 +52,13 @@ const TAB_VARIANTS = {
 };
 
 export default function Home() {
-  const [activeTab, setActiveTab] = useState("overview");
-  const [prevTab, setPrevTab] = useState("overview");
+  const [activeTab, setActiveTab] = useState("bahamas");
+  const [prevTab, setPrevTab] = useState("bahamas");
   const [direction, setDirection] = useState(1);
   const [mapField, setMapField] = useState<"dmttStatus"|"girStatus"|"irmStatus"|"utprStatus">("dmttStatus");
   const [citData, setCitData] = useState<any[]>([]);
   const [dataLoading, setDataLoading] = useState(false);
   const [apiSource, setApiSource] = useState("");
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const tabScrollRef = useRef<HTMLDivElement>(null);
 
   const enacted      = DMTT_COUNTRIES.filter((c) => c.dmttStatus === "enacted").length;
@@ -74,7 +73,6 @@ export default function Home() {
     setDirection(newIdx >= oldIdx ? 1 : -1);
     setPrevTab(activeTab);
     setActiveTab(id);
-    setMobileMenuOpen(false);
     // scroll tab into view on mobile
     const el = tabScrollRef.current?.querySelector(`[data-tab="${id}"]`) as HTMLElement;
     el?.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
@@ -139,59 +137,13 @@ export default function Home() {
                   className="hidden sm:flex items-center gap-1 text-slate-400 hover:text-white text-xs transition-colors">
                   <ExternalLink className="w-3 h-3" />Source
                 </a>
-                {/* Mobile menu button */}
-                <motion.button
-                  onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                  className="sm:hidden p-2 rounded-lg"
-                  style={{ background: "#1e293b", border: "1px solid #334155" }}
-                  whileTap={{ scale: 0.9 }}
-                >
-                  {mobileMenuOpen ? <X className="w-4 h-4 text-white" /> : <Menu className="w-4 h-4 text-white" />}
-                </motion.button>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Mobile dropdown menu */}
-        <AnimatePresence>
-          {mobileMenuOpen && (
-            <motion.div
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: "auto", opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.25 }}
-              className="sm:hidden overflow-hidden"
-              style={{ background: "rgba(2,8,23,0.97)", borderBottom: "1px solid #1e293b" }}
-            >
-              <div className="px-4 py-3 grid grid-cols-2 gap-2">
-                {TABS.map((tab) => {
-                  const Icon = tab.icon;
-                  const active = activeTab === tab.id;
-                  return (
-                    <motion.button
-                      key={tab.id}
-                      onClick={() => switchTab(tab.id)}
-                      whileTap={{ scale: 0.95 }}
-                      className="flex items-center gap-2 px-3 py-2.5 rounded-xl text-sm font-medium text-left"
-                      style={{
-                        background: active ? `${tab.color}18` : "#1e293b",
-                        border: `1px solid ${active ? tab.color + "50" : "#334155"}`,
-                        color: active ? tab.color : "#94a3b8",
-                      }}
-                    >
-                      <Icon className="w-4 h-4 flex-shrink-0" />
-                      <span className="truncate">{tab.label}</span>
-                    </motion.button>
-                  );
-                })}
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-
-        {/* Desktop tab bar */}
-        <div className="max-w-7xl mx-auto px-4 tab-container hidden sm:block" style={{ borderBottom: "1px solid #1e293b" }}>
+        {/* Tab bar — scrollable on all screen sizes */}
+        <div className="max-w-7xl mx-auto px-2 sm:px-4 tab-container" style={{ borderBottom: "1px solid #1e293b" }}>
           <div ref={tabScrollRef} className="tab-scroll">
             {TABS.map((tab) => {
               const Icon = tab.icon;
@@ -201,7 +153,7 @@ export default function Home() {
                   key={tab.id}
                   data-tab={tab.id}
                   onClick={() => switchTab(tab.id)}
-                  className="flex items-center gap-2 px-4 py-3 text-sm font-medium whitespace-nowrap glow-btn"
+                  className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2.5 sm:py-3 text-xs sm:text-sm font-medium whitespace-nowrap glow-btn"
                   style={{
                     color: active ? tab.color : tab.highlight ? "#34d399" : "#64748b",
                     background: "transparent",
@@ -262,7 +214,7 @@ export default function Home() {
                 label="Est. Revenue" color="#8b5cf6"
               />
             </StaggerItem>
-            <StaggerItem className="col-span-2 sm:col-span-1">
+            <StaggerItem>
               <StatChip
                 icon={<AlertTriangle className="w-3.5 h-3.5 text-red-400" />}
                 value={<AnimatedCounter to={below15} />}
@@ -275,27 +227,6 @@ export default function Home() {
 
       {/* ── MAIN ───────────────────────────────────────── */}
       <main className="max-w-7xl mx-auto px-3 sm:px-4 py-4 sm:py-6">
-        {/* Mobile active tab label */}
-        <div className="sm:hidden mb-4 flex items-center gap-2">
-          {(() => { const t = TABS.find(t => t.id === activeTab)!; const Icon = t.icon; return (
-            <motion.div className="flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-medium"
-              style={{ background: `${t.color}15`, border: `1px solid ${t.color}40`, color: t.color }}
-              initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} key={activeTab}>
-              <Icon className="w-4 h-4" />{t.label}
-            </motion.div>
-          );})()}
-          <div className="sm:hidden ml-auto">
-            <div className="tab-scroll flex gap-1.5" style={{ maxWidth: "200px" }}>
-              {TABS.map((t) => (
-                <button key={t.id} onClick={() => switchTab(t.id)}
-                  className="w-1.5 h-1.5 rounded-full flex-shrink-0 transition-all"
-                  style={{ background: activeTab === t.id ? t.color : "#334155", transform: activeTab === t.id ? "scale(1.4)" : "scale(1)" }}
-                />
-              ))}
-            </div>
-          </div>
-        </div>
-
         {/* Tab content with slide animation */}
         <AnimatePresence mode="wait" custom={direction}>
           <motion.div
